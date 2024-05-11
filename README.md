@@ -11,34 +11,32 @@ Sockets Links.
 ## PROGRAM
 ### Client
 ```
-import socket
-s=socket.socket()
-s.bind(('localhost',8000))
-s.listen(5)
-c,addr=s.accept()
-address={"165.165.80.80":"6A:08:AA:C2","165.165.79.1":"8A:BC:E3:FA"};
-while True:
-    ip=c.recv(1024).decode()
-    try:
-        c.send(address[ip].encode())
-    except KeyError:
-        c.send("Not Found".encode()) 
+import socket 
+s=socket.socket() 
+s.connect(('localhost',8000)) 
+while True: 
+    msg=input("Client > ") 
+    s.send(msg.encode()) 
+    print("Server > ",s.recv(1024).decode())  
+
 ```
 ### Server
 ```
-import socket
-s=socket.socket()
-s.connect(('localhost',8000))
-while True:
-    ip=input("Enter logical Address : ")
-    s.send(ip.encode())
-    print("MAC Address",s.recv(1024).decode())
+import socket 
+s=socket.socket() 
+s.bind(('localhost',8000)) 
+s.listen(5) 
+c,addr=s.accept() 
+while True: 
+    ClientMessage=c.recv(1024).decode() 
+    c.send(ClientMessage.encode())
 ```
 ## OUPUT
 ### Client
-![Screenshot 2024-03-21 152356](https://github.com/s-adhithya/3a.Sockets_Creation_for_Echo_Client_and_Echo_Server/assets/113497423/fcb5b039-b510-441f-b382-bebf8b17bbe9)
+![329763593-1295284d-c30f-4ca6-9a16-404e6f78bedb](https://github.com/s-adhithya/3a.Sockets_Creation_for_Echo_Client_and_Echo_Server/assets/113497423/6bcaf2e4-031d-490d-82d8-9c37885b98f7)
+
 ### Server
-![Screenshot 2024-03-21 152341](https://github.com/s-adhithya/3a.Sockets_Creation_for_Echo_Client_and_Echo_Server/assets/113497423/ba13f257-9e8d-46bc-a7f2-3ae90483de44)
+![329763600-a55a20de-d10a-44b5-8211-d463fb79fca4](https://github.com/s-adhithya/3a.Sockets_Creation_for_Echo_Client_and_Echo_Server/assets/113497423/4fd07d98-ad37-4dfd-aabc-e9303042f562)
 
 
 ## RESULT
